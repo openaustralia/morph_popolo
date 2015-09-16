@@ -3,6 +3,8 @@ require "sinatra/json"
 require "json"
 require "open-uri"
 
+set :protection, except: [:json_csrf]
+
 def morph_scraper_query(scraper_name, query)
   puts "Querying morph.io scraper, #{scraper_name}, for: #{query}"
   url = "https://api.morph.io/#{scraper_name}/data.json?key=#{CGI.escape(ENV['MORPH_API_KEY'])}&query=#{CGI.escape(query)}"
