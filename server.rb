@@ -1,5 +1,6 @@
 require "sinatra"
+require "sinatra/json"
 
-get "/" do
-  "Hello World!"
+get "/vote_event/:id" do |id|
+  json foo: id
 end
