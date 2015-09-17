@@ -15,5 +15,5 @@ get "/vote_event/:id" do |id|
   vote_event = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'vote_events' WHERE identifier='#{id}'").first
   votes = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'votes' WHERE vote_event_id='#{id}'")
 
-  json vote_event.merge(votes: votes)
+  json vote_events: [vote_event.merge(votes: votes)]
 end
