@@ -17,3 +17,13 @@ get "/vote_event/:id" do |id|
 
   json vote_events: [vote_event.merge(votes: votes)]
 end
+
+get "/vote_events/:date" do |date|
+  vote_events = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'vote_events' WHERE date(start_date)='#{date}'")
+  vote_events.map! do |ve|
+    votes = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'votes' WHERE vote_event_id='#{ve["identifier"]}'")
+    ve.merge(votes: votes)
+  end
+
+  json vote_events: vote_events
+end
