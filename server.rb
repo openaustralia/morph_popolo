@@ -20,8 +20,11 @@ end
 
 get "/vote_events/:date" do |date|
   vote_events = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'vote_events' WHERE date(start_date)='#{date}'")
+  vote_event_ids = vote_events.map { |ve| "'#{ve["identifier"]}'" }.join(", ")
+  all_votes = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'votes' WHERE vote_event_id IN (#{vote_event_ids})")
+
   vote_events.map! do |ve|
-    votes = morph_scraper_query(ENV["MORPH_SCRAPER_NAME"], "SELECT * FROM 'votes' WHERE vote_event_id='#{ve["identifier"]}'")
+    votes = all_votes.select { |v| v["vote_event_id"] == ve["identifier"] }
     ve.merge(votes: votes)
   end
 
