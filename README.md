@@ -20,6 +20,10 @@ Given the `identifier` of the `vote_event` you want is "3106" you'll be able to 
 
 http://localhost:9292/vote_event/3106
 
+You can also get all votes on a day:
+
+http://localhost:9292/vote_events/2015-07-14
+
 ## Deployment
 
 Deploy it to Heroku:
