@@ -14,8 +14,8 @@ end
 # Nests source_url and debate_url under the Popolo sources array
 def nest_sources(h)
   h[:sources] = [
-    {source_url: h.delete("source_url"), note: "Source URL"},
-    {debate_url: h.delete("debate_url"), note: "Debate URL"}
+    {url: h.delete("source_url"), note: "Source URL"},
+    {url: h.delete("debate_url"), note: "Debate URL"}
   ]
 
   h
